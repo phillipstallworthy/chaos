@@ -34,6 +34,16 @@ window.onload = function () {
       down((side / 4) * 3 + margin, depth + margin, (side / 4));
       down((side / 2) + margin,     depth1 + margin, (side / 4));
 
+      down((side / 8) + margin,     depth + margin, (side / 8))
+
+      down((side / 16) + margin,     depth + margin, (side / 16))
+
+      down((side / 32) + margin,     depth + margin, (side / 32))
+
+      down((side / 64) + margin,     depth + margin, (side / 64))
+
+      down((side / 64) + margin,     depth + margin, (side / 64))
+
     }
 
     // draw an upside down equilateral triangle
