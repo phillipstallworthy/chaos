@@ -27,7 +27,10 @@ window.onload = function () {
 
       var depth1 = down((side / 2) + margin,     depth + margin, (side / 2));
 
+      // create triagle to the left, right, and above, the one 
+      // just created in the line above
       down((side / 4) + margin,     depth + margin, (side / 4));
+      //create 3 here as well - recursive.... :)
       down((side / 4) * 3 + margin, depth + margin, (side / 4));
       down((side / 2) + margin,     depth1 + margin, (side / 4));
 
