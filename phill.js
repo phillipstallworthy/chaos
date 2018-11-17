@@ -9,40 +9,29 @@ window.onload = function () {
 
     var margin = 25;
 
-    //sixTriangles();
-    twoTriangles();
+    //twoTriangles();
+    fiveTriangles();
 
     function twoTriangles() {
       var side = sideCalc();
       var depth = up((side / 2) + margin, margin, side);
-
-      console.log("depth = " + depth);
-      console.log("side = " + side);
 
       down((side / 2) + margin,depth + margin,
           (side / 2));
 
     }
 
-    // Draw 
-    function sixTriangles() {
+    function fiveTriangles() {
+      var side = sideCalc();
+      var depth = up((side / 2) + margin, margin, side);
 
-      var side = sideCalc(), x = (side / 2) + margin, y = side + margin,
-        yDelta = 10, sideDelta = 20, limit = 6;
+      var depth1 = down((side / 2) + margin,     depth + margin, (side / 2));
 
-      draw(x, y, side, yDelta, sideDelta, limit);
+      down((side / 4) + margin,     depth + margin, (side / 4));
+      down((side / 4) * 3 + margin, depth + margin, (side / 4));
+      down((side / 2) + margin,     depth1 + margin, (side / 4));
 
-      //recursive drawing function
-      function draw(x, y, side, yDelta, sideDelta, limit) {
-        if (limit == 0) { return };
-        console.log("x : " + x + "  y : "
-          + y + "  side : " + side);
-        down(x, y, side);
-        limit--;
-        draw(x, y - yDelta, side - sideDelta, yDelta, sideDelta, limit);
-      };
     }
-
 
     // draw an upside down equilateral triangle
     // path starts at x,y, bottom  
@@ -51,13 +40,23 @@ window.onload = function () {
       var angle = (Math.PI / 180) * 60;
       var depth = Math.cos(angle / 2) * side;
 
+      console.log("Down");
+      console.log("depth = " + depth);
+      console.log("side = " + side);
+      console.log("x = " + x);
+      console.log("y = " + y);
+      console.log(" ");
+
+      chaos.context.beginPath();
       chaos.context.moveTo(x, y);
 
       chaos.context.lineTo(x - half, y - depth);
       chaos.context.lineTo(x + half, y - depth);
 
-      chaos.context.lineTo(x, y);
+      chaos.context.closePath();
       chaos.context.stroke();
+      chaos.context.fillStyle = "red";
+      chaos.context.fill(); 
 
       return depth;
     }
@@ -69,13 +68,24 @@ window.onload = function () {
       var angle = (Math.PI / 180) * 60;
       var depth = Math.cos(angle / 2) * side;
 
+      console.log("Up");
+      console.log("depth = " + depth);
+      console.log("side = " + side);
+      console.log("x = " + x);
+      console.log("y = " + y);
+      console.log(" ");
+
+      chaos.context.beginPath();
       chaos.context.moveTo(x, y);
 
       chaos.context.lineTo(x + half, y + depth);
       chaos.context.lineTo(x - half, y + depth);
 
-      chaos.context.lineTo(x, y);
+      //chaos.context.lineTo(x, y);
+      chaos.context.closePath();
       chaos.context.stroke();
+      chaos.context.fillStyle = "blue";
+      chaos.context.fill();      
 
       return depth;
     }
