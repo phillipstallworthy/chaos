@@ -5,47 +5,42 @@ window.onload = function () {
   function init() {
 
     chaos.init();
-    //chaos.clear("green");
 
     var margin = 25;
 
-    //twoTriangles();
     fiveTriangles();
-
-    function twoTriangles() {
-      var side = sideCalc();
-      var depth = up((side / 2) + margin, margin, side);
-
-      down((side / 2) + margin, depth + margin,
-        (side / 2));
-
-    }
 
     //colours = []
 
     function fiveTriangles() {
       var side = sideCalc();
-      var depth = up((side / 2) + margin, margin, side, "blue");
+      var org_depth = up((side / 2) + margin, margin, side, "blue");
 
-      var depth1 = down((side / 2) + margin, depth + margin,(side / 2), "yellow");
- 
-      var depth2 = three();
+      var depth1 = down((side / 2) + margin, org_depth + margin, (side / 2), "yellow");
 
-      down((side / 8) + margin, depth + margin, (side / 8), "green");
-      down((side / 8) * 3 + margin, depth + margin, (side / 8), "green");
-      down((side / 4) + margin, (depth - depth2) + margin, (side / 8), "green");
+      var depth2 = three(4, "red");
 
-      down((side / 16) + margin, depth + margin, (side / 16), "purple");
+      down((side / 8) + margin, org_depth + margin, (side / 8), "green");
+      down((side / 8) * 3 + margin, org_depth + margin, (side / 8), "green");
+      down((side / 4) + margin, (org_depth - depth2) + margin, (side / 8), "green");
 
-      down((side / 32) + margin, depth + margin, (side / 32), "orange");
+      down((side / 16) + margin, org_depth + margin, (side / 16), "purple");
 
-      down((side / 64) + margin, depth + margin, (side / 64), "white");
+      down((side / 32) + margin, org_depth + margin, (side / 32), "orange");
 
+      down((side / 64) + margin, org_depth + margin, (side / 64), "white");
 
-      function three(size, colour) {
-        down((side / 4) + margin, depth + margin, (side / 4), "red");
-        down((side / 4) * 3 + margin, depth + margin, (side / 4), "red");
-        var depth2 = down((side / 2) + margin, depth1 + margin, (side / 4), "red");
+      /*
+      Draw three triagles around a triagle
+      devisor - devide the orgininal side by this
+      colour - colour of the triagles
+      return - the depth of the new triangles.
+      */
+
+      function three(devisor, colour, ) {
+        down((side / devisor) + margin, org_depth + margin, (side / devisor), colour);
+        down((side / devisor) * 3 + margin, org_depth + margin, (side / devisor), colour);
+        var depth2 = down((side / 2) + margin, depth1 + margin, (side / devisor), colour);
         return depth2;
       }
     }
