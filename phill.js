@@ -18,30 +18,32 @@ window.onload = function () {
 
       var depth1 = down((side / 2) + margin, org_depth + margin, (side / 2), "yellow");
 
-      var depth2 = three(4, "red");
+      var depth2 = three((side/4), depth1, "red");
 
-      down((side / 8) + margin, org_depth + margin, (side / 8), "green");
-      down((side / 8) * 3 + margin, org_depth + margin, (side / 8), "green");
-      down((side / 4) + margin, (org_depth - depth2) + margin, (side / 8), "green");
+      var depth3 = three((side/8), depth2, "green");
 
-      down((side / 16) + margin, org_depth + margin, (side / 16), "purple");
+      //var depth4 = three((side/16), depth3, "purple");
 
-      down((side / 32) + margin, org_depth + margin, (side / 32), "orange");
+      //down((side / 32) + margin, org_depth + margin, (side / 32), "orange");
 
-      down((side / 64) + margin, org_depth + margin, (side / 64), "white");
+      //down((side / 64) + margin, org_depth + margin, (side / 64), "white");
 
       /*
       Draw three triagles around a triagle
-      devisor - devide the orgininal side by this
-      colour - colour of the triagles
+      side - the width of this triangle
+      previous depth - the depth of the triagnel we are drawing triangles around
+        required for positioning the top one
+      colour - colour of triangles
       return - the depth of the new triangles.
       */
 
-      function three(devisor, colour, ) {
-        down((side / devisor) + margin, org_depth + margin, (side / devisor), colour);
-        down((side / devisor) * 3 + margin, org_depth + margin, (side / devisor), colour);
-        var depth2 = down((side / 2) + margin, depth1 + margin, (side / devisor), colour);
-        return depth2;
+      function three(side, previous_depth, colour ) {
+        //bottom left
+        down(side + margin, org_depth + margin, side, colour);
+        //bottom right
+        down((side * 3) + margin, org_depth + margin, side, colour);
+        //top
+        return down((side * 2) + margin, (org_depth - previous_depth) + margin, side, colour);
       }
     }
 
