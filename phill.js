@@ -37,13 +37,13 @@ window.onload = function () {
       return - the depth of the new triangles.
       */
 
-      function three(side, previous_depth, colour ) {
+      function three(x, y, side, previous_depth, colour ) {
         //bottom left
-        down(side + margin, org_depth + margin, side, colour);
+        down(x - side, y, side, colour);
         //bottom right
-        down((side * 3) + margin, org_depth + margin, side, colour);
+        down(x + side, y, side, colour);
         //top
-        return down((side * 2) + margin, (org_depth - previous_depth) + margin, side, colour);
+        return down(x, y - previous_depth, side, colour);
       }
     }
 
