@@ -20,33 +20,31 @@ window.onload = function () {
 
     function fiveTriangles() {
       var side = sideCalc();
-      var org_depth = up((side / 2) + margin, margin, side, colours[level++]);
+      
+      //first large triangle upright triangle
+      var up_depth = up((side / 2) + margin, margin, side, colours[level++]);
 
+
+      // 2nd triangle
       var x = (side / 2) + margin;
-      var y = org_depth + margin;
+      var y = up_depth + margin;
+      var depth = down(x, y, (side / 2), colours[level]);
 
-      var depth1 = down(x, y, (side / 2), colours[level]);
-
-      var depth2 = three(x, y, (side / 4), depth1, level);
-
-      // depth3 = three((side/8), depth2, "green");
-
-      //var depth4 = three((side/16), depth3, "purple");
-
-      //down((side / 32) + margin, org_depth + margin, (side / 32), "orange");
-
-      //down((side / 64) + margin, org_depth + margin, (side / 64), "white");
+      //the populate the rest recursivly aroound the second one.
+      three(x, y, (side / 4), depth, level);
 
       /*
       Draw three triagles around a triagle
-      side - the width of this triangle
-      previous depth - the depth of the triagnel we are drawing triangles around
+      x,y - The locatino of the start of the previous triangle, 
+        surrounding triables are calulated relative to this.
+      side - the side length of surronding triangles
+      depth - the depth of the triagnel we are drawing triangles around
         required for positioning the top one
-      colour - colour of triangles
+      level - a count of the depth of recursion. - Don't go too deep Alice!
       return - the depth of the new triangles.
       */
 
-      function three(x, y, side, previous_depth, level) {
+      function three(x, y, side, depth, level) {
         level ++;
 
         //bottom left
@@ -62,9 +60,9 @@ window.onload = function () {
         }
 
         //top
-        down(x, y - previous_depth, side, colours[level]);
+        down(x, y - depth, side, colours[level]);
         if (level <= max_level) {
-          three(x, y - previous_depth, side / 2, depth, level);
+          three(x, y - depth, side / 2, depth, level);
         }
         
         return depth;
