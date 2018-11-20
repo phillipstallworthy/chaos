@@ -7,21 +7,27 @@ window.onload = function () {
     chaos.init();
 
     var margin = 25;
+    // first large triable is level zero, 
+    //2nd internal level 1, 3rd level starts populating around the previous
+    // also used to select the colour
+    var level = 0;
+    var max_level = 5;
+    colours = ["blue", "yellow", "red", "green", "orange", "purple", "white"];
 
     fiveTriangles();
 
-    //colours = []
+
 
     function fiveTriangles() {
       var side = sideCalc();
-      var org_depth = up((side / 2) + margin, margin, side, "blue");
+      var org_depth = up((side / 2) + margin, margin, side, colours[level++]);
 
       var x = (side / 2) + margin;
       var y = org_depth + margin;
-      var level = 3;
-      var depth1 = down(x, y, (side / 2), "yellow");
 
-      var depth2 = three(x,y,(side/4), depth1, level, "red");
+      var depth1 = down(x, y, (side / 2), colours[level]);
+
+      var depth2 = three(x, y, (side / 4), depth1, level);
 
       // depth3 = three((side/8), depth2, "green");
 
@@ -40,26 +46,26 @@ window.onload = function () {
       return - the depth of the new triangles.
       */
 
-      function three(x, y, side, previous_depth, level, colour ) {
+      function three(x, y, side, previous_depth, level) {
+        level ++;
+
         //bottom left
-        var depth = down(x - side, y, side, colour);
-        if (level == 3)
-        {
-			three(x - side, y, side / 2, depth, 4 , "green");
-		}
-        
+        var depth = down(x - side, y, side, colours[level]);
+        if (level <= max_level) {
+          three(x - side, y, side / 2, depth, level);
+        }
+
         //bottom right
-        down(x + side, y, side, colour);
-        if (level == 3)
-        {
-			three(x + side, y, side / 2, depth, 4 , "green");
-		}
+        down(x + side, y, side, colours[level]);
+        if (level <= max_level) {
+          three(x + side, y, side / 2, depth, level);
+        }
+
         //top
-        down(x, y - previous_depth, side, colour);
-        if (level == 3)
-        {
-			three(x, y - previous_depth, side / 2, depth, 4 , "green");
-		}
+        down(x, y - previous_depth, side, colours[level]);
+        if (level <= max_level) {
+          three(x, y - previous_depth, side / 2, depth, level);
+        }
         
         return depth;
       }
