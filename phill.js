@@ -16,11 +16,14 @@ window.onload = function () {
       var side = sideCalc();
       var org_depth = up((side / 2) + margin, margin, side, "blue");
 
-      var depth1 = down((side / 2) + margin, org_depth + margin, (side / 2), "yellow");
+      var x = (side / 2) + margin;
+      var y = org_depth + margin;
+      var level = 3;
+      var depth1 = down(x, y, (side / 2), "yellow");
 
-      var depth2 = three((side/4), depth1, "red");
+      var depth2 = three(x,y,(side/4), depth1, level, "red");
 
-      var depth3 = three((side/8), depth2, "green");
+      // depth3 = three((side/8), depth2, "green");
 
       //var depth4 = three((side/16), depth3, "purple");
 
@@ -37,13 +40,28 @@ window.onload = function () {
       return - the depth of the new triangles.
       */
 
-      function three(x, y, side, previous_depth, colour ) {
+      function three(x, y, side, previous_depth, level, colour ) {
         //bottom left
-        down(x - side, y, side, colour);
+        var depth = down(x - side, y, side, colour);
+        if (level == 3)
+        {
+			three(x - side, y, side / 2, depth, 4 , "green");
+		}
+        
         //bottom right
         down(x + side, y, side, colour);
+        if (level == 3)
+        {
+			three(x + side, y, side / 2, depth, 4 , "green");
+		}
         //top
-        return down(x, y - previous_depth, side, colour);
+        down(x, y - previous_depth, side, colour);
+        if (level == 3)
+        {
+			three(x, y - previous_depth, side / 2, depth, 4 , "green");
+		}
+        
+        return depth;
       }
     }
 
